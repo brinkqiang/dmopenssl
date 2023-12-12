@@ -210,3 +210,5 @@ set( CPACK_PACKAGE_VERSION_PATCH ${VERSION_PATCH} )
 set( CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${VERSION_STRING}" )
 
 include( CPack )
+
+ExeImport("example" "ssl;crypto")
