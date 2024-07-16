@@ -289,7 +289,7 @@ else()
     target_link_libraries( crypto ${CMAKE_THREAD_LIBS_INIT} )
   endif()
   if( DSO_DLFCN AND HAVE_DLFCN_H )
-    target_link_libraries( crypto  )
+    target_link_libraries( crypto dl )
   endif()
 endif()
 
