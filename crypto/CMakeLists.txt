@@ -22,6 +22,28 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+## openwrt start
+if(NOT WIN32)
+
+  # 使用 uname 命令获取操作系统名称
+  execute_process(
+    COMMAND uname -a
+    OUTPUT_VARIABLE UNAME_OUTPUT
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+
+  # 检查输出中是否包含 "OpenWrt"
+  if (UNAME_OUTPUT MATCHES "OpenWrt")
+    message(STATUS "System is OpenWRT")
+    set(IS_OPENWRT 1)
+  else ()
+    message(STATUS "System is not OpenWRT")
+    set(IS_OPENWRT 0)
+  endif ()
+else ()
+  set(IS_OPENWRT 0)
+endif ()
+## openwrt end
 
 include( CMakeParseArguments )
 
@@ -289,7 +311,8 @@ else()
     target_link_libraries( crypto ${CMAKE_THREAD_LIBS_INIT} )
   endif()
   if( DSO_DLFCN AND HAVE_DLFCN_H )
-    target_link_libraries( crypto dl )
+    if (NOT IS_OPENWRT)
+      target_link_libraries( crypto dl )
   endif()
 endif()
 
