@@ -313,6 +313,7 @@ else()
   if( DSO_DLFCN AND HAVE_DLFCN_H )
     if (NOT IS_OPENWRT)
       target_link_libraries( crypto dl )
+    endif()
   endif()
 endif()
 
